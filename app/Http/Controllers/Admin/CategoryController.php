@@ -4,13 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\StoreCategoryRequest;
+use App\Http\Requests\Admin\UpdateCategoryRequest;
+use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
+    protected CategoryService $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function index()
     {
-        $categories = Category::latest()->paginate(7);
+        $categories = $this->categoryService->getAll();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -19,15 +28,9 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
-        ]);
-
-        Category::create([
-            'name' => $request->name,
-        ]);
+        $this->categoryService->store($request->validated());
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Kategori berhasil ditambahkan.');
@@ -38,15 +41,9 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
-        ]);
-
-        $category->update([
-            'name' => $request->name,
-        ]);
+        $this->categoryService->update($category, $request->validated());
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Kategori berhasil diperbarui.');
@@ -54,7 +51,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        $category->delete();
+        $this->categoryService->delete($category);
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Kategori berhasil dihapus.');

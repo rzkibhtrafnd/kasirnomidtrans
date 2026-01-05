@@ -17,5 +17,19 @@ class Product extends Model
     {
         return $this->hasMany(TransactionItem::class);
     }
+
+    public function scopeFilter($query, $request)
+    {
+        if ($request->category) {
+            $query->where('category_id', $request->category);
+        }
+
+        if ($request->search) {
+            $query->where('name', 'like', "%{$request->search}%");
+        }
+
+        return $query->latest();
+    }
+
 }
 

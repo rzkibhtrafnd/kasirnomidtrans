@@ -16,4 +16,26 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeFilterByDate($query, $month, $year)
+    {
+        if ($month) {
+            $query->whereMonth('created_at', $month);
+        }
+
+        if ($year) {
+            $query->whereYear('created_at', $year);
+        }
+
+        return $query;
+    }
+
+    public function scopeForUser($query, $user)
+    {
+        if ($user->role === 'admin') {
+            return $query;
+        }
+
+        return $query->where('user_id', $user->id);
+    }
 }
