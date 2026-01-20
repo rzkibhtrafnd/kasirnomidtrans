@@ -18,7 +18,7 @@
                     {{-- Nama --}}
                     <div>
                         <label class="block mb-1 text-sm font-medium text-gray-700">Nama</label>
-                        <input type="text" name="name" value="{{ old('name') }}"
+                        <input data-testid="kasir-name-input" type="text" name="name" value="{{ old('name') }}"
                             class="w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="Masukkan nama kasir" required>
                         @error('name')
@@ -29,7 +29,7 @@
                     {{-- Email --}}
                     <div>
                         <label class="block mb-1 text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}"
+                        <input data-testid="kasir-email-input" type="email" name="email" value="{{ old('email') }}"
                             class="w-full p-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                             placeholder="Masukkan email" required>
                         @error('email')
@@ -58,7 +58,7 @@
                             Batal
                         </a>
 
-                        <button type="submit"
+                        <button data-testid="submit-kasir-button" type="submit"
                             class="px-4 py-2 text-sm font-semibold text-white transition bg-blue-600 rounded-lg hover:bg-blue-700">
                             Simpan
                         </button>

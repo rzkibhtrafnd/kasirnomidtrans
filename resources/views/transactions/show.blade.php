@@ -16,7 +16,7 @@
                     </h3>
 
                     <a href="{{ route('transactions.receipt.pdf', $transaction->id) }}"
-                       class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition bg-green-600 rounded-lg hover:bg-green-700">
+                       data-testid="transaction-detail-receipt" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition bg-green-600 rounded-lg hover:bg-green-700">
                         <i class="mr-2 fas fa-file-pdf"></i> Cetak Struk
                     </a>
                 </div>
@@ -54,9 +54,9 @@
 
                 {{-- Tabel Item --}}
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm border divide-y divide-gray-200 rounded-lg">
+                    <table data-testid="transaction-item-table" class="w-full text-sm border divide-y divide-gray-200 rounded-lg">
                         <thead class="bg-gray-100">
-                            <tr>
+                            <tr data-testid="transaction-item-row">
                                 <th class="px-4 py-2 font-semibold text-left text-gray-600">Produk</th>
                                 <th class="px-4 py-2 font-semibold text-center text-gray-600">Qty</th>
                                 <th class="px-4 py-2 font-semibold text-right text-gray-600">Subtotal</th>
@@ -65,7 +65,7 @@
 
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($transaction->items as $item)
-                                <tr class="transition hover:bg-gray-50">
+                                <tr data-testid="transaction-item-row" class="transition hover:bg-gray-50">
                                     <td class="px-4 py-2">{{ $item->product->name }}</td>
                                     <td class="px-4 py-2 text-center">{{ $item->qty }}</td>
                                     <td class="px-4 py-2 text-right">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
@@ -77,7 +77,7 @@
 
                 {{-- Total --}}
                 <div class="flex justify-end pt-4 border-t">
-                    <p class="text-lg font-bold text-gray-800">Total: Rp {{ number_format($transaction->total, 0, ',', '.') }}</p>
+                    <p data-testid="transaction-detail-total" class="text-lg font-bold text-gray-800">Total: Rp {{ number_format($transaction->total, 0, ',', '.') }}</p>
                 </div>
 
                 {{-- Tombol Kembali --}}

@@ -17,7 +17,7 @@
                         <label class="block mb-1 text-sm font-medium text-gray-700">
                             Nama Kategori
                         </label>
-                        <input type="text" name="name"
+                        <input data-testid="category-name-input" type="text" name="name"
                                value="{{ old('name', $category->name) }}"
                                class="w-full p-2 border rounded-md focus:ring focus:ring-indigo-200"
                                required>
@@ -31,7 +31,7 @@
                            class="px-4 py-2 text-sm bg-gray-200 rounded hover:bg-gray-300">
                             Batal
                         </a>
-                        <button type="submit"
+                        <button data-testid="submit-category-button" type="submit"
                                 class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
                             Update
                         </button>

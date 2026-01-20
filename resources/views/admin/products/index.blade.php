@@ -13,7 +13,7 @@
                 <h3 class="flex items-center text-lg font-semibold text-gray-800">
                     Daftar Produk
                 </h3>
-                <a href="{{ route('admin.products.create') }}"
+                <a href="{{ route('admin.products.create') }}" data-testid="add-product-button"
                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition duration-200 ease-in-out bg-blue-600 rounded-lg shadow hover:bg-blue-700">
                     <i class="mr-2 fas fa-plus"></i> Tambah Produk
                 </a>
@@ -21,7 +21,7 @@
 
             {{-- Notifikasi sukses --}}
             @if(session('success'))
-                <div class="p-3 mb-4 text-green-700 bg-green-100 border border-green-300 rounded-md">
+                <div data-testid="alert-success" class="p-3 mb-4 text-green-700 bg-green-100 border border-green-300 rounded-md">
                     <i class="mr-2 fas fa-check-circle"></i>
                     {{ session('success') }}
                 </div>
@@ -29,9 +29,9 @@
 
             {{-- Tabel Produk --}}
             <div class="overflow-x-auto">
-                <table class="min-w-full text-sm border divide-y divide-gray-200 rounded-lg">
+                <table data-testid="product-table" class="min-w-full text-sm border divide-y divide-gray-200 rounded-lg">
                     <thead class="bg-gray-100">
-                        <tr>
+                        <tr data-testid="product-row">
                             <th class="px-4 py-2 font-semibold text-left text-gray-600">No</th>
                             <th class="px-4 py-2 font-semibold text-left text-gray-600">Gambar</th>
                             <th class="px-4 py-2 font-semibold text-left text-gray-600">Kategori</th>
@@ -43,7 +43,7 @@
 
                     <tbody class="divide-y divide-gray-200">
                         @forelse ($products as $product)
-                            <tr class="transition hover:bg-gray-50">
+                            <tr data-testid="product-row" class="transition hover:bg-gray-50">
                                 <td class="px-4 py-2">
                                     {{ $loop->iteration }}
                                 </td>
@@ -72,7 +72,7 @@
                                 <td class="px-4 py-2 space-x-2 text-right">
 
                                     {{-- Tombol Edit --}}
-                                    <a href="{{ route('admin.products.edit', $product->id) }}"
+                                    <a href="{{ route('admin.products.edit', $product->id) }}" data-testid="edit-product-button"
                                        class="inline-flex items-center px-3 py-1 text-sm font-medium text-white transition duration-200 bg-yellow-500 rounded-md hover:bg-yellow-600">
                                         <i class="mr-1 fas fa-edit"></i> Edit
                                     </a>
@@ -83,7 +83,7 @@
                                           class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
+                                        <button type="submit" data-testid="delete-product-button"
                                                 onclick="return confirm('Yakin hapus produk ini?')"
                                                 class="inline-flex items-center px-3 py-1 text-sm font-medium text-white transition duration-200 bg-red-600 rounded-md hover:bg-red-700">
                                             <i class="mr-1 fas fa-trash-alt"></i> Hapus

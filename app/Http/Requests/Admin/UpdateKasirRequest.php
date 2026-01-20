@@ -21,9 +21,10 @@ class UpdateKasirRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('kasir');
         return [
             'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->route('id'),
+            'email' => 'required|email|unique:users,email,' . $userId,
         ];
     }
 }

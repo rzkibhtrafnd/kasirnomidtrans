@@ -15,7 +15,7 @@
                     </i> Daftar Transaksi
                 </h3>
 
-                <a href="{{ route('transactions.create') }}"
+                <a href="{{ route('transactions.create') }}" data-testid="transaction-new-button"
                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition duration-200 bg-blue-600 rounded-lg shadow hover:bg-blue-700">
                     <i class="mr-2 fas fa-plus"></i> Transaksi Baru
                 </a>
@@ -36,34 +36,34 @@
                 </div>
             @endif
 
-            <form method="GET" class="grid gap-2 mb-4 sm:flex sm:items-end">
-                <select name="month" class="px-2 py-1 border rounded">
+            <form method="GET"  data-testid="transaction-filter-form" class="grid gap-2 mb-4 sm:flex sm:items-end">
+                <select data-testid="transaction-filter-month" name="month" class="px-2 py-1 border rounded">
                     <option value="">Bulan</option>
                     @for($m=1;$m<=12;$m++)
                         <option value="{{ $m }}" @selected(request('month') == $m)>{{ DateTime::createFromFormat('!m', $m)->format('F') }}</option>
                     @endfor
                 </select>
 
-                <select name="year" class="px-2 py-1 border rounded">
+                <select data-testid="transaction-filter-year" name="year" class="px-2 py-1 border rounded">
                     <option value="">Tahun</option>
                     @for($y = date('Y'); $y >= 2020; $y--)
                         <option value="{{ $y }}" @selected(request('year') == $y)>{{ $y }}</option>
                     @endfor
                 </select>
 
-                <button type="submit" class="px-4 py-1 text-white bg-blue-600 rounded">Filter</button>
+                <button data-testid="transaction-filter-submit" type="submit" class="px-4 py-1 text-white bg-blue-600 rounded">Filter</button>
 
                 @if(Auth::user()->role === 'admin')
                     <a href="{{ route('transactions.report.pdf', request()->query()) }}" 
-                    class="px-4 py-1 text-center text-white bg-red-600 rounded"><i class="mr-1 fas fa-file-pdf"></i>Unduh Laporan</a>
+                    data-testid="transaction-download-report" class="px-4 py-1 text-center text-white bg-red-600 rounded"><i class="mr-1 fas fa-file-pdf"></i>Unduh Laporan</a>
                 @endif
             </form>
 
             {{-- Tabel Transaksi --}}
             <div class="overflow-x-auto">
-                <table class="min-w-full text-sm border divide-y divide-gray-200 rounded-lg">
+                <table data-testid="transaction-table" class="min-w-full text-sm border divide-y divide-gray-200 rounded-lg">
                     <thead class="bg-gray-100">
-                        <tr>
+                        <tr data-testid="transaction-row">
                             <th class="px-4 py-2 font-semibold text-left text-gray-600">ID</th>
                             <th class="px-4 py-2 font-semibold text-left text-gray-600">Tanggal</th>
                             <th class="px-4 py-2 font-semibold text-left text-gray-600">Total</th>
@@ -75,7 +75,7 @@
 
                     <tbody class="divide-y divide-gray-200">
                         @forelse ($transactions as $transaction)
-                            <tr class="transition hover:bg-gray-50">
+                            <tr data-testid="transaction-row" class="transition hover:bg-gray-50">
                                 <td class="px-4 py-2">
                                     #{{ $transaction->id }}
                                 </td>
@@ -119,13 +119,13 @@
                                 <td class="px-4 py-2 space-x-2 text-right">
                                     {{-- Detail --}}
                                     <a href="{{ route('transactions.show', $transaction->id) }}"
-                                       class="inline-flex items-center px-3 py-1 text-sm font-medium text-white transition bg-indigo-600 rounded-md hover:bg-indigo-700">
+                                       data-testid="transaction-detail-button" class="inline-flex items-center px-3 py-1 text-sm font-medium text-white transition bg-indigo-600 rounded-md hover:bg-indigo-700">
                                         <i class="mr-1 fas fa-eye"></i> Detail
                                     </a>
 
                                     {{-- Download PDF --}}
                                     <a href="{{ route('transactions.receipt.pdf', $transaction->id) }}"
-                                       class="inline-flex items-center px-3 py-1 text-sm font-medium text-white transition bg-green-600 rounded-md hover:bg-green-700">
+                                       data-testid="transaction-receipt-button" class="inline-flex items-center px-3 py-1 text-sm font-medium text-white transition bg-green-600 rounded-md hover:bg-green-700">
                                         <i class="mr-1 fas fa-file-pdf"></i> Struk
                                     </a>
                                 </td>

@@ -48,7 +48,10 @@
             {{-- User Dropdown --}}
             <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
-                    <button class="flex items-center px-3 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200">
+                    <button
+                        data-testid="user-menu-button"
+                        class="flex items-center px-3 py-2 text-sm bg-gray-100 rounded hover:bg-gray-200"
+                    >
                         {{ Auth::user()->name }}
                         <i class="ml-2 text-xs fas fa-chevron-down"></i>
                     </button>
@@ -62,6 +65,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-dropdown-link
+                            data-testid="logout-button"
                             :href="route('logout')"
                             onclick="event.preventDefault(); this.closest('form').submit();"
                         >

@@ -74,7 +74,7 @@ class TransactionController extends Controller
     {
         abort_if(Auth::user()->role !== 'admin', 403);
 
-        $transactions = $this->service->report(
+        $transactions = $this->transactionService->report(
             $request->month,
             $request->year
         );

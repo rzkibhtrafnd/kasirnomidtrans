@@ -20,6 +20,7 @@
                     <div>
                         <label class="block mb-1 text-sm font-medium">Kategori</label>
                         <select name="category_id"
+                                data-testid="category-select"
                                 class="w-full p-2 border rounded"
                                 required>
                             @foreach($categories as $category)
@@ -34,7 +35,7 @@
                     {{-- Nama --}}
                     <div>
                         <label class="block mb-1 text-sm font-medium">Nama Produk</label>
-                        <input type="text"
+                        <input data-testid="product-name-input" type="text"
                                name="name"
                                value="{{ $product->name }}"
                                class="w-full p-2 border rounded"
@@ -50,7 +51,7 @@
                                  class="object-cover w-24 h-24 mb-2 rounded">
                         @endif
 
-                        <input type="file"
+                        <input data-testid="product-image-input" type="file"
                                name="image"
                                class="w-full p-2 border rounded">
                     </div>
@@ -58,7 +59,7 @@
                     {{-- Harga --}}
                     <div>
                         <label class="block mb-1 text-sm font-medium">Harga (Rp)</label>
-                        <input type="number"
+                        <input data-testid="product-harga-input" type="number"
                                name="price"
                                value="{{ $product->price }}"
                                class="w-full p-2 border rounded"
@@ -71,7 +72,7 @@
                            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
                             Batal
                         </a>
-                        <button type="submit"
+                        <button data-testid="submit-product-button" type="submit"
                                 class="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
                             Update
                         </button>
